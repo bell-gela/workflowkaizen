@@ -1,457 +1,450 @@
-{\rtf1\ansi\ansicpg932\cocoartf2867
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
-\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Mission Control - Baymax Ultimate Professional</title>
+    <style>
+        :root {
+            --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            --font-baymax: "Segoe UI Rounded", "Hiragino Maru Gothic ProN", "Quicksand", sans-serif;
+            --baymax-red: #ef5350;
+            --baymax-blue: #5a7d9a;
+        }
 
-\f0\fs24 \cf0 <!DOCTYPE html>\
-<html lang="ja">\
-<head>\
-    <meta charset="UTF-8">\
-    <title>Mission Control - Baymax Ultimate Professional</title>\
-    <style>\
-        :root \{\
-            --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);\
-            --font-baymax: "Segoe UI Rounded", "Hiragino Maru Gothic ProN", "Quicksand", sans-serif;\
-            --baymax-red: #ef5350;\
-            --baymax-blue: #5a7d9a;\
-        \}\
-\
-        /* --- \uc0\u12486 \u12540 \u12510 \u35373 \u23450  --- */\
-        .theme-baymax \{\
-            --bg-url: url('https://www.tokyodisneyresort.jp/v1/tds/scenery/images/port_cape.jpg');\
-            --glass: rgba(255, 255, 255, 0.92);\
-            --accent-grad: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);\
-            --btn-grad: linear-gradient(to right, #5a7d9a, #78a2c0);\
-            --text: #2c3e50;\
-            --bar-bg: rgba(0,0,0,0.1);\
-        \}\
-        .theme-afternoon \{\
-            --bg-url: url('https://www.tokyodisneyresort.jp/v1/tds/scenery/images/port_lost.jpg');\
-            --glass: rgba(255, 255, 245, 0.92);\
-            --accent-grad: linear-gradient(135deg, #f6d365 0%, #fda085 100%);\
-            --btn-grad: linear-gradient(to right, #2e7d32, #689f38);\
-            --text: #1b1b1b;\
-            --bar-bg: rgba(0,0,0,0.1);\
-        \}\
-        .theme-night \{\
-            --bg-url: url('https://www.tokyodisneyresort.jp/v1/tds/scenery/images/port_mysterious.jpg');\
-            --glass: rgba(15, 20, 30, 0.95);\
-            --accent-grad: linear-gradient(135deg, #30cfd0 0%, #330867 100%);\
-            --btn-grad: linear-gradient(to right, #ff8c00, #ff4500);\
-            --text: #ffffff;\
-            --bar-bg: rgba(255, 255, 255, 0.2);\
-        \}\
-\
-        /* Mysterious\uc0\u12486 \u12540 \u12510 \u26178 \u12398 \u26410 \u36984 \u25246 \u12479 \u12502 \u25991 \u23383 \u33394 \u20462 \u27491  */\
-        .theme-night .tab-btn:not(.active) \{ color: #000 !important; \}\
-\
-        * \{ box-sizing: border-box; \}\
-        body \{\
-            font-family: var(--font-baymax);\
-            background: var(--bg-url) no-repeat center center fixed;\
-            background-size: cover;\
-            color: var(--text);\
-            height: 100vh; margin: 0; display: flex; overflow: hidden; transition: var(--transition);\
-        \}\
-\
-        /* --- \uc0\u12524 \u12452 \u12450 \u12454 \u12488 \u27083 \u36896  --- */\
-        #left-routine \{\
-            width: 280px; background: var(--glass); backdrop-filter: blur(15px);\
-            padding: 20px; border-right: 1px solid rgba(0,0,0,0.1); transition: var(--transition);\
-            display: flex; flex-direction: column; flex-shrink: 0; z-index: 100;\
-        \}\
-        #left-routine.closed \{ width: 0; padding: 0; transform: translateX(-280px); visibility: hidden; \}\
-\
-        #center-main \{ flex: 1; display: flex; flex-direction: column; padding: 15px; gap: 15px; overflow: hidden; z-index: 10; position: relative; \}\
-\
-        #right-memo \{ width: 340px; padding: 15px; background: rgba(0,0,0,0.1); display: flex; flex-direction: column; gap: 12px; z-index: 10; \}\
-        #memo-list-container \{ flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding-right: 5px; \}\
-\
-        /* --- \uc0\u31069 \u31085 \u28436 \u20986  --- */\
-        #celebration-canvas \{ position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 5; opacity: 0; transition: opacity 1s; \}\
-\
-        /* --- \uc0\u12467 \u12531 \u12509 \u12540 \u12493 \u12531 \u12488  --- */\
-        .glass-card \{ background: var(--glass); border-radius: 30px; padding: 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.4); \}\
-        .btn \{ background: var(--btn-grad); color: white; border: none; padding: 10px 18px; border-radius: 20px; cursor: pointer; font-family: var(--font-baymax); font-weight: bold; transition: 0.2s; display: inline-flex; align-items: center; justify-content: center; \}\
-        .btn:hover \{ transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.3); \}\
-\
-        #live-clock \{ font-size: 2rem; font-weight: 900; background: var(--btn-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; \}\
-        .timer-display \{ font-size: 2.8rem; font-weight: bold; font-family: var(--font-baymax); color: var(--btn-grad); letter-spacing: -1px; \}\
-\
-        .routine-item \{ display: flex; align-items: center; padding: 12px; border-radius: 15px; margin-bottom: 10px; cursor: pointer; transition: 0.3s; background: rgba(255,255,255,0.5); border: 1px solid rgba(0,0,0,0.05); \}\
-        .routine-item.checked \{ background: var(--baymax-blue); color: white; \}\
-        .routine-item input \{ pointer-events: none; margin-right: 12px; width: 20px; height: 20px; \}\
-\
-        .nav-tabs \{ display: flex; gap: 10px; margin-bottom: 5px; \}\
-        .tab-btn \{ background: rgba(255,255,255,0.3); border: 1px solid rgba(255,255,255,0.5); color: inherit; padding: 12px 20px; border-radius: 20px; cursor: pointer; font-weight: bold; font-family: var(--font-baymax); transition: 0.2s; \}\
-        .tab-btn.active \{ background: var(--btn-grad) !important; color: #fff !important; border: none; box-shadow: 0 4px 12px rgba(0,0,0,0.2); \}\
-\
-        input, select, textarea \{ border-radius: 15px; border: 1px solid rgba(0,0,0,0.1); padding: 10px; font-family: var(--font-baymax); background: rgba(255,255,255,0.6); color: inherit; \}\
-        .progress-bar \{ flex: 1; height: 24px; background: var(--bar-bg); border-radius: 12px; overflow: hidden; margin: 0 15px; border: 1px solid rgba(255,255,255,0.1); \}\
-        .progress-fill \{ height: 100%; width: 0%; background: var(--btn-grad); transition: 0.8s ease; box-shadow: 0 0 15px var(--btn-grad); \}\
-\
-        #modal-overlay \{ position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); display: none; justify-content: center; align-items: center; z-index: 11000; \}\
-        .modal-content \{ background: var(--glass); color: var(--text); padding: 40px; border-radius: 35px; width: 650px; max-width: 90%; box-shadow: 0 25px 60px rgba(0,0,0,0.4); position: relative; \}\
-\
-        .content-page \{ display: none; height: 100%; overflow-y: auto; padding-bottom: 20px; \}\
-        .content-page.active \{ display: block; \}\
-        \
-        .post-it \{ background: var(--glass); padding: 15px; border-radius: 20px; position: relative; border-left: 6px solid var(--baymax-blue); box-shadow: 2px 4px 15px rgba(0,0,0,0.1); animation: slideIn 0.3s ease; height: auto; min-height: 80px; \}\
-        .del-btn \{ position: absolute; top: 10px; right: 15px; cursor: pointer; opacity: 0.4; font-size: 1.2rem; \}\
-        \
-        .btn-grid \{ display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; margin-top: 15px; \}\
-\
-        .bm-input-group \{ display: flex; gap: 15px; margin-bottom: 15px; \}\
-        .bm-left-inputs \{ width: 150px; display: flex; flex-direction: column; gap: 10px; \}\
-        .bm-right-inputs \{ flex: 1; \}\
-        .bm-row \{ display: grid; grid-template-columns: 90px 120px 1fr; gap: 15px; background: rgba(255,255,255,0.2); padding: 12px 18px; border-radius: 15px; margin-bottom: 8px; cursor: pointer; align-items: center; border: 1px solid rgba(0,0,0,0.05); \}\
-\
-        .settings-table \{ width: 100%; border-collapse: collapse; margin-top: 10px; \}\
-        .settings-table td \{ padding: 5px; \}\
-    </style>\
-</head>\
-<body class="theme-baymax" id="bodyTag">\
-\
-<canvas id="celebration-canvas"></canvas>\
-<div id="copy-toast" style="position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:rgba(0,0,0,0.85); color:white; padding:20px 40px; border-radius:40px; z-index:12000; display:none; pointer-events:none;">COPIED!</div>\
-\
-<div id="modal-overlay" onclick="closeModal()">\
-    <div class="modal-content" onclick="event.stopPropagation()" id="modal-container"></div>\
-</div>\
-\
-<aside id="left-routine">\
-    <h2 style="font-size:1.4rem; margin-bottom:25px; font-weight:bold; color:var(--baymax-red);">\uc0\u9679 \u8213 \u9679  Protocol</h2>\
-    <div id="routine-list"></div>\
-</aside>\
-\
-<main id="center-main">\
-    <header class="glass-card" style="display:flex; flex-direction:column; gap:15px;">\
-        <div style="display:flex; justify-content:space-between; align-items:center;">\
-            <div id="live-clock">Loading Clock...</div>\
-            <div style="display:flex; align-items:center; gap:20px;">\
-                <div class="timer-display" id="timerDisplay">03:00</div>\
-                <div style="display:flex; flex-direction:column; gap:5px;">\
-                    <div style="display:flex; gap:4px;">\
-                        <button class="btn" style="padding:4px 8px; font-size:0.75rem;" onclick="setTimerPreset(180)">3m</button>\
-                        <button class="btn" style="padding:4px 8px; font-size:0.75rem;" onclick="setTimerPreset(300)">5m</button>\
-                        <button class="btn" style="padding:4px 8px; font-size:0.75rem;" onclick="setTimerPreset(600)">10m</button>\
-                        <button class="btn" style="padding:4px 8px; font-size:0.75rem; background:#444;" onclick="openCustomTimerModal()">Custom</button>\
-                    </div>\
-                    <div style="display:flex; gap:5px;">\
-                        <button class="btn" style="flex:1;" onclick="startTimer()">START</button>\
-                        <button class="btn" style="background:#666; flex:1;" onclick="stopTimer()">STOP</button>\
-                    </div>\
-                </div>\
-            </div>\
-        </div>\
-        <div style="display:flex; align-items:center;">\
-            <span style="font-weight:900; font-size:0.9rem;">MISSION:</span>\
-            <div class="progress-bar"><div id="progressFill" class="progress-fill"></div></div>\
-            <div style="display:flex; align-items:center; gap:8px;">\
-                <span id="progressCurrent" style="font-weight:900; font-size:1.4rem;">0</span>\
-                <span>/</span>\
-                <input type="number" id="progressGoal" value="20" style="width:55px; font-weight:bold; text-align:center;" onchange="updateProgressUI()">\
-            </div>\
-            <button class="btn" style="border-radius:50%; width:44px; height:44px; padding:0; margin-left:15px; font-size:1.6rem;" onclick="addProgress()">+</button>\
-        </div>\
-    </header>\
-\
-    <nav class="nav-tabs" id="main-nav">\
-        <button class="tab-btn active" onclick="showPage('launcher')">\uc0\u12521 \u12531 \u12481 \u12515 \u12540 </button>\
-        <button class="tab-btn" onclick="showPage('cytology')">\uc0\u32048 \u32990 \u35386 \u26989 \u21209 </button>\
-        <button class="tab-btn" onclick="showPage('outsource')">\uc0\u22806 \u27880 \u12539 \u26908 \u26619 \u19968 \u35239 </button>\
-        <button class="tab-btn" onclick="showPage('settings')">\uc0\u35373 \u23450 </button>\
-    </nav>\
-\
-    <div id="page-launcher" class="content-page active">\
-        <div class="glass-card">\
-            <h3>Quick Access</h3>\
-            <div id="launcher-items" class="btn-grid"></div>\
-        </div>\
-    </div>\
-\
-    <div id="page-cytology" class="content-page">\
-        <div class="glass-card" style="min-height:550px;">\
-            <div style="display:flex; gap:10px; margin-bottom:20px;">\
-                <button class="btn" onclick="showSub('sub-tpl')">\uc0\u25152 \u35211 \u12486 \u12531 \u12503 \u12524 </button>\
-                <button class="btn" onclick="showSub('sub-book')">\uc0\u30151 \u20363 \u12502 \u12483 \u12463 \u12510 \u12540 \u12463 </button>\
-                <button class="btn" onclick="showSub('sub-crit')">\uc0\u21028 \u23450 \u22522 \u28310 </button>\
-            </div>\
-            <hr style="opacity:0.1; margin-bottom:20px;">\
-\
-            <div id="sub-tpl" class="sub-content">\
-                <select id="tplSel" onchange="loadTpl()" style="width:100%; margin-bottom:15px; height:45px;">\
-                    <option value="">-- \uc0\u12486 \u12531 \u12503 \u12524 \u12540 \u12488 \u12434 \u36984 \u25246  --</option>\
-                    <option value="lung_ad">\uc0\u32954 \u65306 \u33146 \u30284 \u30097 \u12356 </option>\
-                    <option value="uro_hg">\uc0\u23615 \u65306 High-grade UC</option>\
-                </select>\
-                <textarea id="tplArea" style="width:100%; height:200px; font-size:1.1rem; background:rgba(255,255,255,0.6);" placeholder="\uc0\u32232 \u38598 \u21487 \u33021 \u12391 \u12377 "></textarea>\
-                <button class="btn" style="width:100%; margin-top:15px; height:55px;" onclick="copyTpl()">\uc0\u20869 \u23481 \u12434 \u12467 \u12500 \u12540 </button>\
-            </div>\
-\
-            <div id="sub-book" class="sub-content" style="display:none;">\
-                <div class="bm-input-group">\
-                    <div class="bm-left-inputs">\
-                        <input type="text" id="bmId" placeholder="No.">\
-                        <select id="bmType"><option>\uc0\u32954 </option><option>\u23615 </option><option>\u30002 \u29366 \u33146 </option><option>\u12381 \u12398 \u20182 </option></select>\
-                    </div>\
-                    <div class="bm-right-inputs">\
-                        <textarea id="bmMemo" style="width:100%; height:100px;" placeholder="\uc0\u35443 \u32048 \u12513 \u12514 ..."></textarea>\
-                    </div>\
-                </div>\
-                <button class="btn" style="width:100%;" onclick="addBookmark()">\uc0\u12502 \u12483 \u12463 \u12510 \u12540 \u12463 \u12395 \u36861 \u21152 </button>\
-                <div style="margin-top:25px; border-bottom:2px solid rgba(0,0,0,0.05); padding-bottom:12px; display:flex; justify-content:space-between; align-items:center;">\
-                    <div style="display:grid; grid-template-columns: 90px 120px 1fr; gap:15px; width:100%; padding:0 15px; font-weight:bold; font-size:0.9rem; opacity:0.6;">\
-                        <span>\uc0\u20998 \u37326 </span><span>No.</span><span>\u12513 \u12514 \u20869 \u23481 </span>\
-                    </div>\
-                    <button class="btn" style="font-size:0.75rem; background:#2e7d32;" onclick="exportToExcel()">Excel\uc0\u20986 \u21147 </button>\
-                </div>\
-                <div id="bmList" style="margin-top:10px;"></div>\
-            </div>\
-\
-            <div id="sub-crit" class="sub-content" style="display:none;">\
-                <div class="btn-grid">\
-                    <button class="btn" style="height:60px;" onclick="openModal('\uc0\u32954 \u65306 \u21028 \u23450 \u22522 \u28310 ', '\u12505 \u12475 \u12473 \u12480 \u31532 3\u29256 \u28310 \u25312 ...\\n1.\u32048 \u32990 \u25505 \u21462 \u37327 \\n2.\u26680 \u30064 \u22411 ...')">\u32954 \u65288 Bethesda\u65289 </button>\
-                    <button class="btn" style="height:60px;" onclick="openModal('\uc0\u23615 \u65306 \u21028 \u23450 \u22522 \u28310 ', '\u12497 \u12522 \u12471 \u12473 \u12486 \u12512 \u28310 \u25312 ...\\n1.N/C\u27604  0.7\u20197 \u19978 \\n2.\u26680 \u32257 \u19981 \u25972 ...')">\u23615 \u65288 Paris\u65289 </button>\
-                </div>\
-            </div>\
-        </div>\
-    </div>\
-\
-    <div id="page-outsource" class="content-page">\
-        <div class="glass-card">\
-            <h3>\uc0\u26908 \u26619 \u12539 \u22806 \u27880 \u12509 \u12540 \u12479 \u12523 </h3>\
-            <div id="test-category-grid" class="btn-grid"></div>\
-        </div>\
-    </div>\
-\
-    <div id="page-test-detail" class="content-page">\
-        <div class="glass-card">\
-            <div style="display:flex; justify-content:space-between; align-items:center;">\
-                <h3 id="test-detail-title">\uc0\u35443 \u32048 </h3>\
-                <button class="btn" style="background:#666;" onclick="showPage('outsource')">\uc0\u25147 \u12427 </button>\
-            </div>\
-            <div id="test-sub-category-grid" class="btn-grid" style="margin-top:20px;"></div>\
-        </div>\
-    </div>\
-\
-    <div id="page-settings" class="content-page">\
-        <div class="glass-card">\
-            <h3>System Settings</h3>\
-            <div style="display:flex; gap:10px; margin-bottom:20px;">\
-                <button class="btn" onclick="showSettingsSub('set-theme')">\uc0\u12486 \u12540 \u12510 \u22793 \u26356 </button>\
-                <button class="btn" onclick="showSettingsSub('set-links')">\uc0\u12522 \u12531 \u12463 \u35373 \u23450 </button>\
-                <button class="btn" style="background:#555;" onclick="resetAll()">\uc0\u20840 \u12522 \u12475 \u12483 \u12488 </button>\
-            </div>\
-            <hr style="opacity:0.1;">\
-            <div id="set-theme" class="settings-sub" style="margin-top:15px;">\
-                <p>\uc0\u12486 \u12540 \u12510 \u12434 \u36984 \u25246 \u65306 </p>\
-                <button class="btn" onclick="setTheme('baymax')">Baymax</button>\
-                <button class="btn" style="background:#2e7d32;" onclick="setTheme('afternoon')">Afternoon</button>\
-                <button class="btn" style="background:#1a1a2e;" onclick="setTheme('night')">Night</button>\
-            </div>\
-            <div id="set-links" class="settings-sub" style="display:none; margin-top:15px;">\
-                <p>\uc0\u12521 \u12531 \u12481 \u12515 \u12540 \u35373 \u23450 \u65306 </p>\
-                <table class="settings-table">\
-                    <thead><tr><th>\uc0\u34920 \u31034 \u21517 </th><th>URL / \u12501 \u12449 \u12452 \u12523 \u12497 \u12473 </th></tr></thead>\
-                    <tbody id="link-editor-body"></tbody>\
-                </table>\
-                <button class="btn" style="margin-top:15px;" onclick="saveLauncherConfig()">\uc0\u35373 \u23450 \u12434 \u20445 \u23384 </button>\
-            </div>\
-        </div>\
-    </div>\
-</main>\
-\
-<aside id="right-memo">\
-    <div class="glass-card" style="padding:15px;">\
-        <h3 style="font-size:0.95rem; margin-bottom:10px; font-weight:bold;">\uc0\u9679 \u8213 \u9679  Memo Pad</h3>\
-        <textarea id="memoInput" style="width:100%; height:75px; font-size:0.9rem;" placeholder="\uc0\u12463 \u12452 \u12483 \u12463 \u12513 \u12514 ..."></textarea>\
-        <button class="btn" style="width:100%; margin-top:8px;" onclick="addMemo()">\uc0\u36861 \u21152 </button>\
-    </div>\
-    <div id="memo-list-container"></div>\
-</aside>\
-\
-<script>\
-    const CONFIG = \{\
-        routines: ["\uc0\u22812 \u21220 \u30003 \u12375 \u36865 \u12426 \u30906 \u35469 ", "\u26579 \u33394 \u27231 \u12539 \u35430 \u34220 \u12481 \u12455 \u12483 \u12463 ", "\u33267 \u24613 \u26908 \u20307 \u12398 \u26377 \u28961 \u30906 \u35469 ", "\u24403 \u26085 \u12398 \u37197 \u32622 \u30906 \u35469 "],\
-        testCats: ["\uc0\u29983 \u21270 \u23398 ", "\u34880 \u28082 \u23398 ", "\u20813 \u30123 \u12539 \u36664 \u34880 ", "\u19968 \u33324 \u26908 \u26619 ", "\u24494 \u29983 \u29289 \u23398 ", "\u30149 \u29702 \u12539 \u32048 \u32990 \u35386 ", "\u29983 \u29702 \u27231 \u33021 ", "\u32202 \u24613 \u26908 \u26619 ", "\u26908 \u20307 \u21462 \u25201 ", "\u12497 \u12491 \u12483 \u12463 \u20516 "],\
-        templates: \{\
-            lung_ad: "\uc0\u12304 \u21028 \u23450 \u12305 \u38525 \u24615 \\n\u12304 \u25152 \u35211 \u12305 \u32972 \u26223 \u12395 \u22730 \u27515 \u12434 \u20276 \u12356 \u12289 \u22823 \u23567 \u19981 \u21516 \u12398 \u24375 \u12356 \u30064 \u22411 \u32048 \u32990 \u12364 \u20083 \u38957 \u29366 \u12316 \u38598 \u22602 \u29366 \u12395 \u35469 \u12417 \u12425 \u12428 \u12427 \u12290 \u33146 \u30284 \u12434 \u30097 \u12358 \u12290 ",\
-            uro_hg: "\uc0\u12304 \u21028 \u23450 \u12305 \u38525 \u24615 \\n\u12304 \u25152 \u35211 \u12305 \u39640 \u24230 \u12394 \u26680 \u30064 \u22411 \u12434 \u26377 \u12377 \u12427 \u23615 \u36335 \u19978 \u30382 \u32048 \u32990 \u12434 \u35469 \u12417 \u12427 \u12290 High-grade UC\u12434 \u24375 \u12367 \u31034 \u21766 \u12377 \u12427 \u12290 "\
-        \}\
-    \};\
-\
-    let userConfig = JSON.parse(localStorage.getItem('vPro_user_config_final')) || \{\
-        links: [\{name: "\uc0\u38651 \u23376 \u12459 \u12523 \u12486 ", url: "#"\}, \{name: "LIS\u12471 \u12473 \u12486 \u12512 ", url: "#"\}, \{name: "\u20849 \u26377 \u12501 \u12457 \u12523 \u12480 ", url: "file:///Z:/"\}, \{name: "note | Dapity", url: "https://note.com/"\}]\
-    \};\
-\
-    // --- \uc0\u26178 \u35336  ---\
-    function updateClock() \{\
-        const now = new Date();\
-        const days = ['\uc0\u26085 ','\u26376 ','\u28779 ','\u27700 ','\u26408 ','\u37329 ','\u22303 '];\
-        document.getElementById('live-clock').innerText = `$\{now.getFullYear()\}/$\{(now.getMonth()+1).toString().padStart(2,'0')\}/$\{now.getDate().toString().padStart(2,'0')\} ($\{days[now.getDay()]\}) $\{now.getHours().toString().padStart(2,'0')\}:$\{now.getMinutes().toString().padStart(2,'0')\}:$\{now.getSeconds().toString().padStart(2,'0')\}`;\
-    \}\
-    setInterval(updateClock, 1000);\
-\
-    // --- \uc0\u12506 \u12540 \u12472 \u31649 \u29702  (\u12479 \u12502 \u33394 \u22793 \u21270 ) ---\
-    function showPage(pageId) \{\
-        document.querySelectorAll('.content-page').forEach(el => el.classList.remove('active'));\
-        const targetPage = document.getElementById('page-' + pageId);\
-        if(targetPage) targetPage.classList.add('active');\
-        \
-        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));\
-        const btns = document.querySelectorAll('.tab-btn');\
-        if(pageId === 'launcher') btns[0].classList.add('active');\
-        else if(pageId === 'cytology') btns[1].classList.add('active');\
-        else if(pageId === 'outsource' || pageId === 'test-detail') btns[2].classList.add('active');\
-        else if(pageId === 'settings') btns[3].classList.add('active');\
-    \}\
-    function showSub(s) \{ document.querySelectorAll('.sub-content').forEach(el => el.style.display = 'none'); document.getElementById(s).style.display = 'block'; \}\
-    function showSettingsSub(s) \{ document.querySelectorAll('.settings-sub').forEach(el => el.style.display = 'none'); document.getElementById(s).style.display = 'block'; if(s==='set-links') renderLinkEditor(); \}\
-\
-    // --- \uc0\u12523 \u12540 \u12481 \u12531 \u29983 \u25104  (\u20462 \u27491 \u29256 ) ---\
-    function initRoutine() \{\
-        const rCont = document.getElementById('routine-list');\
-        rCont.innerHTML = '';\
-        const lastDate = localStorage.getItem('vRoutine_date_final');\
-        if (lastDate === new Date().toDateString()) \{\
-            document.getElementById('left-routine').classList.add('closed');\
-        \} else \{\
-            CONFIG.routines.forEach((r, i) => \{\
-                const div = document.createElement('div');\
-                div.className = 'routine-item';\
-                div.innerHTML = `<input type="checkbox"> <label style="cursor:pointer; flex:1;">$\{r\}</label>`;\
-                div.onclick = (e) => \{\
-                    const cb = div.querySelector('input');\
-                    if(e.target !== cb) cb.checked = !cb.checked;\
-                    div.classList.toggle('checked', cb.checked);\
-                    if(Array.from(document.querySelectorAll('#routine-list input')).every(c => c.checked)) \{\
-                        setTimeout(() => \{\
-                            document.getElementById('left-routine').classList.add('closed');\
-                            localStorage.setItem('vRoutine_date_final', new Date().toDateString());\
-                        \}, 600);\
-                    \}\
-                \};\
-                rCont.appendChild(div);\
-            \});\
-        \}\
-    \}\
-\
-    // --- \uc0\u12521 \u12531 \u12481 \u12515 \u12540 \u35373 \u23450  ---\
-    function initLauncher() \{\
-        const grid = document.getElementById('launcher-items'); grid.innerHTML = '';\
-        userConfig.links.forEach(l => \{\
-            const btn = document.createElement('button'); btn.className = 'btn'; btn.style.height = '60px'; btn.innerText = l.name;\
-            btn.onclick = () => window.open(l.url, '_blank'); grid.appendChild(btn);\
-        \});\
-    \}\
-    function renderLinkEditor() \{\
-        const body = document.getElementById('link-editor-body'); body.innerHTML = '';\
-        userConfig.links.forEach((l, i) => \{\
-            body.innerHTML += `<tr><td><input type="text" value="$\{l.name\}" id="ename-$\{i\}"></td><td><input type="text" value="$\{l.url\}" id="eurl-$\{i\}" style="width:100%"></td></tr>`;\
-        \});\
-    \}\
-    function saveLauncherConfig() \{\
-        userConfig.links = userConfig.links.map((_, i) => (\{name: document.getElementById('ename-'+i).value, url: document.getElementById('eurl-'+i).value\}));\
-        localStorage.setItem('vPro_user_config_final', JSON.stringify(userConfig));\
-        initLauncher(); alert("\uc0\u20445 \u23384 \u23436 \u20102 ");\
-    \}\
-\
-    // --- \uc0\u30151 \u20363 \u12502 \u12483 \u12463 \u12510 \u12540 \u12463  ---\
-    let bms = JSON.parse(localStorage.getItem('vPro_bms_final')) || [];\
-    function addBookmark() \{\
-        const id = document.getElementById('bmId').value;\
-        const type = document.getElementById('bmType').value;\
-        const memo = document.getElementById('bmMemo').value;\
-        if(id) \{\
-            bms.push(\{id, type, memo\});\
-            document.getElementById('bmId').value = ''; document.getElementById('bmMemo').value = '';\
-            saveBms();\
-        \} else \{ alert("\uc0\u30151 \u20363 \u30058 \u21495 \u12434 \u20837 \u21147 \u12375 \u12390 \u12367 \u12384 \u12373 \u12356 "); \}\
-    \}\
-    function saveBms() \{ localStorage.setItem('vPro_bms_final', JSON.stringify(bms)); renderBms(); \}\
-    function renderBms() \{\
-        const list = document.getElementById('bmList'); list.innerHTML = '';\
-        bms.forEach((item) => \{\
-            const row = document.createElement('div'); row.className = 'bm-row';\
-            row.onclick = () => openModal(`No. $\{item.id\} ($\{item.type\})`, item.memo);\
-            row.innerHTML = `<span class="btn" style="padding:2px 8px; font-size:0.7rem;">$\{item.type\}</span><b>No. $\{item.id\}</b><span style="opacity:0.6; font-size:0.85rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">$\{item.memo\}</span>`;\
-            list.appendChild(row);\
-        \});\
-    \}\
-    function exportToExcel() \{\
-        let csv = "\\uFEFF\uc0\u20998 \u37326 ,\u30151 \u20363 No,\u12513 \u12514 \\n"; bms.forEach(i => \{ csv += `"$\{i.type\}","$\{i.id\}","$\{i.memo.replace(/"/g, '""')\}"\\n`; \});\
-        const blob = new Blob([csv], \{ type: "text/csv;charset=utf-8;" \});\
-        const link = document.createElement("a"); link.href = URL.createObjectURL(blob); link.download = `\uc0\u30151 \u20363 \u12502 \u12483 \u12463 \u12510 \u12540 \u12463 _$\{new Date().toLocaleDateString()\}.csv`; link.click();\
-    \}\
-\
-    // --- \uc0\u28961 \u38480 \u12513 \u12514  ---\
-    let memos = JSON.parse(localStorage.getItem('vPro_memos_final')) || [];\
-    function renderMemos() \{\
-        const cont = document.getElementById('memo-list-container'); cont.innerHTML = '';\
-        memos.forEach((text, i) => \{\
-            const div = document.createElement('div'); div.className = 'post-it';\
-            div.innerHTML = `<span class="del-btn" onclick="deleteMemo($\{i\})">\'d7</span><div style="white-space:pre-wrap; font-size:0.95rem;">$\{text\}</div>`;\
-            cont.appendChild(div);\
-        \});\
-    \}\
-    function addMemo() \{ const input = document.getElementById('memoInput'); if(input.value.trim())\{ memos.unshift(input.value); input.value = ''; saveMemos(); \} \}\
-    function deleteMemo(i) \{ memos.splice(i,1); saveMemos(); \}\
-    function saveMemos() \{ localStorage.setItem('vPro_memos_final', JSON.stringify(memos)); renderMemos(); \}\
-\
-    // --- \uc0\u12479 \u12452 \u12510 \u12540  ---\
-    let tInt; let tSec = 180;\
-    function setTimerPreset(s)\{ clearInterval(tInt); tSec=s; updateTDisp(); \}\
-    function openCustomTimerModal() \{\
-        document.getElementById('modal-container').innerHTML = `<h3>\uc0\u9679 \u8213 \u9679  Custom Timer</h3><input type="number" id="t-val" value="15" style="width:100%; font-size:1.5rem;"><button class="btn" style="width:100%; margin-top:20px;" onclick="setTimerPreset(document.getElementById('t-val').value*60);closeModal();">\u20998 \u25968 \u12434 \u35373 \u23450 </button>`;\
-        document.getElementById('modal-overlay').style.display='flex';\
-    \}\
-    function startTimer()\{ clearInterval(tInt); tInt=setInterval(()=>\{if(tSec<=0)\{clearInterval(tInt);alert("Time Up!");return;\}tSec--;updateTDisp();\},1000); \}\
-    function stopTimer() \{ clearInterval(tInt); \}\
-    function updateTDisp()\{ document.getElementById('timerDisplay').innerText = `$\{Math.floor(tSec/60).toString().padStart(2,'0')\}:$\{(tSec%60).toString().padStart(2,'0')\}`; \}\
-\
-    // --- \uc0\u36914 \u25431  & \u28436 \u20986  ---\
-    let currentProg = 0;\
-    function addProgress() \{ const goal = parseInt(document.getElementById('progressGoal').value); if(currentProg < goal)\{ currentProg++; updateProgressUI(); if(currentProg === goal) triggerFinale(); \} \}\
-    function updateProgressUI() \{ document.getElementById('progressFill').style.width = Math.min((currentProg/parseInt(document.getElementById('progressGoal').value))*100, 100)+'%'; document.getElementById('progressCurrent').innerText = currentProg; \}\
-    function triggerFinale() \{\
-        const canvas = document.getElementById('celebration-canvas'); canvas.style.opacity = "1";\
-        const ctx = canvas.getContext('2d'); canvas.width = window.innerWidth; canvas.height = window.innerHeight;\
-        let p = []; for(let i=0;i<80;i++) p.push(\{x:Math.random()*canvas.width, y:canvas.height+20, vx:(Math.random()-0.5)*6, vy:-Math.random()*12-8, color:`hsl($\{Math.random()*360\},80%,60%)`, s:Math.random()*5+2\});\
-        function anim() \{ ctx.clearRect(0,0,canvas.width,canvas.height); p.forEach(v=>\{v.x+=v.vx; v.y+=v.vy; v.vy+=0.15; ctx.fillStyle=v.color; ctx.beginPath(); ctx.arc(v.x,v.y,v.s,0,Math.PI*2); ctx.fill();\}); if(canvas.style.opacity==="1") requestAnimationFrame(anim); \}\
-        anim(); setTimeout(()=>canvas.style.opacity="0",5000);\
-    \}\
-\
-    // --- \uc0\u12381 \u12398 \u20182  ---\
-    function openModal(t, b) \{ document.getElementById('modal-container').innerHTML = `<h3>$\{t\}</h3><div style="white-space:pre-wrap; line-height:1.8;">$\{b\}</div><button class="btn" style="width:100%; margin-top:20px;" onclick="closeModal()">\uc0\u38281 \u12376 \u12427 </button>`; document.getElementById('modal-overlay').style.display = 'flex'; \}\
-    function closeModal() \{ document.getElementById('modal-overlay').style.display = 'none'; \}\
-    function setTheme(t) \{ document.body.className = 'theme-' + t; \}\
-    function resetAll() \{ if(confirm("\uc0\u21021 \u26399 \u21270 \u12375 \u12414 \u12377 \u12363 \u65311 ")) \{ localStorage.clear(); location.reload(); \} \}\
-\
-    window.onload = () => \{\
-        updateClock(); initRoutine(); initLauncher(); renderMemos(); renderBms(); updateProgressUI();\
-        // \uc0\u26908 \u26619 \u12459 \u12486 \u12468 \u12522 \u21021 \u26399 \u21270 \
-        const catGrid = document.getElementById('test-category-grid');\
-        CONFIG.testCats.forEach(cat => \{\
-            const btn = document.createElement('button'); btn.className = 'btn'; btn.style.height = '60px'; btn.innerText = cat;\
-            btn.onclick = () => \{\
-                document.getElementById('test-detail-title').innerText = cat;\
-                const sg = document.getElementById('test-sub-category-grid'); sg.innerHTML = '';\
-                ["\uc0\u25163 \u38918 \u26360 ", "\u21028 \u23450 \u22522 \u28310 ", "Q&A"].forEach(s => \{\
-                    const sb = document.createElement('button'); sb.className = 'btn'; sb.style.height = '60px'; sb.style.background = '#444'; sb.innerText = s;\
-                    sb.onclick = () => openModal(cat + ' > ' + s, s + ' \uc0\u12398 \u35443 \u32048 \u12460 \u12452 \u12489 \u12391 \u12377 \u12290 ');\
-                    sg.appendChild(sb);\
-                \});\
-                showPage('test-detail');\
-            \};\
-            catGrid.appendChild(btn);\
-        \});\
-    \};\
-\
-    function loadTpl() \{ document.getElementById('tplArea').value = CONFIG.templates[document.getElementById('tplSel').value] || ""; \}\
-    function copyTpl() \{ navigator.clipboard.writeText(document.getElementById('tplArea').value).then(() => \{ const toast = document.getElementById('copy-toast'); toast.style.display='block'; setTimeout(()=>toast.style.display='none',1000); \}); \}\
-</script>\
-</body>\
-</html>}
+        /* --- テーマ設定 --- */
+        .theme-baymax {
+            --bg-url: url('https://www.tokyodisneyresort.jp/v1/tds/scenery/images/port_cape.jpg');
+            --glass: rgba(255, 255, 255, 0.92);
+            --accent-grad: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            --btn-grad: linear-gradient(to right, #5a7d9a, #78a2c0);
+            --text: #2c3e50;
+            --bar-bg: rgba(0,0,0,0.1);
+        }
+        .theme-afternoon {
+            --bg-url: url('https://www.tokyodisneyresort.jp/v1/tds/scenery/images/port_lost.jpg');
+            --glass: rgba(255, 255, 245, 0.92);
+            --accent-grad: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+            --btn-grad: linear-gradient(to right, #2e7d32, #689f38);
+            --text: #1b1b1b;
+            --bar-bg: rgba(0,0,0,0.1);
+        }
+        .theme-night {
+            --bg-url: url('https://www.tokyodisneyresort.jp/v1/tds/scenery/images/port_mysterious.jpg');
+            --glass: rgba(15, 20, 30, 0.95);
+            --accent-grad: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+            --btn-grad: linear-gradient(to right, #ff8c00, #ff4500);
+            --text: #ffffff;
+            --bar-bg: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Mysteriousテーマ時の未選択タブ文字色修正 */
+        .theme-night .tab-btn:not(.active) { color: #000 !important; }
+
+        * { box-sizing: border-box; }
+        body {
+            font-family: var(--font-baymax);
+            background: var(--bg-url) no-repeat center center fixed;
+            background-size: cover;
+            color: var(--text);
+            height: 100vh; margin: 0; display: flex; overflow: hidden; transition: var(--transition);
+        }
+
+        /* --- レイアウト構造 --- */
+        #left-routine {
+            width: 280px; background: var(--glass); backdrop-filter: blur(15px);
+            padding: 20px; border-right: 1px solid rgba(0,0,0,0.1); transition: var(--transition);
+            display: flex; flex-direction: column; flex-shrink: 0; z-index: 100;
+        }
+        #left-routine.closed { width: 0; padding: 0; transform: translateX(-280px); visibility: hidden; }
+
+        #center-main { flex: 1; display: flex; flex-direction: column; padding: 15px; gap: 15px; overflow: hidden; z-index: 10; position: relative; }
+
+        #right-memo { width: 340px; padding: 15px; background: rgba(0,0,0,0.1); display: flex; flex-direction: column; gap: 12px; z-index: 10; }
+        #memo-list-container { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding-right: 5px; }
+
+        /* --- 祝祭演出 --- */
+        #celebration-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 5; opacity: 0; transition: opacity 1s; }
+
+        /* --- コンポーネント --- */
+        .glass-card { background: var(--glass); border-radius: 30px; padding: 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.4); }
+        .btn { background: var(--btn-grad); color: white; border: none; padding: 10px 18px; border-radius: 20px; cursor: pointer; font-family: var(--font-baymax); font-weight: bold; transition: 0.2s; display: inline-flex; align-items: center; justify-content: center; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+
+        #live-clock { font-size: 2rem; font-weight: 900; background: var(--btn-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .timer-display { font-size: 2.8rem; font-weight: bold; font-family: var(--font-baymax); color: var(--btn-grad); letter-spacing: -1px; }
+
+        .routine-item { display: flex; align-items: center; padding: 12px; border-radius: 15px; margin-bottom: 10px; cursor: pointer; transition: 0.3s; background: rgba(255,255,255,0.5); border: 1px solid rgba(0,0,0,0.05); }
+        .routine-item.checked { background: var(--baymax-blue); color: white; }
+        .routine-item input { pointer-events: none; margin-right: 12px; width: 20px; height: 20px; }
+
+        .nav-tabs { display: flex; gap: 10px; margin-bottom: 5px; }
+        .tab-btn { background: rgba(255,255,255,0.3); border: 1px solid rgba(255,255,255,0.5); color: inherit; padding: 12px 20px; border-radius: 20px; cursor: pointer; font-weight: bold; font-family: var(--font-baymax); transition: 0.2s; }
+        .tab-btn.active { background: var(--btn-grad) !important; color: #fff !important; border: none; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+
+        input, select, textarea { border-radius: 15px; border: 1px solid rgba(0,0,0,0.1); padding: 10px; font-family: var(--font-baymax); background: rgba(255,255,255,0.6); color: inherit; }
+        .progress-bar { flex: 1; height: 24px; background: var(--bar-bg); border-radius: 12px; overflow: hidden; margin: 0 15px; border: 1px solid rgba(255,255,255,0.1); }
+        .progress-fill { height: 100%; width: 0%; background: var(--btn-grad); transition: 0.8s ease; box-shadow: 0 0 15px var(--btn-grad); }
+
+        #modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); display: none; justify-content: center; align-items: center; z-index: 11000; }
+        .modal-content { background: var(--glass); color: var(--text); padding: 40px; border-radius: 35px; width: 650px; max-width: 90%; box-shadow: 0 25px 60px rgba(0,0,0,0.4); position: relative; }
+
+        .content-page { display: none; height: 100%; overflow-y: auto; padding-bottom: 20px; }
+        .content-page.active { display: block; }
+        
+        .post-it { background: var(--glass); padding: 15px; border-radius: 20px; position: relative; border-left: 6px solid var(--baymax-blue); box-shadow: 2px 4px 15px rgba(0,0,0,0.1); animation: slideIn 0.3s ease; height: auto; min-height: 80px; }
+        .del-btn { position: absolute; top: 10px; right: 15px; cursor: pointer; opacity: 0.4; font-size: 1.2rem; }
+        
+        .btn-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; margin-top: 15px; }
+
+        .bm-input-group { display: flex; gap: 15px; margin-bottom: 15px; }
+        .bm-left-inputs { width: 150px; display: flex; flex-direction: column; gap: 10px; }
+        .bm-right-inputs { flex: 1; }
+        .bm-row { display: grid; grid-template-columns: 90px 120px 1fr; gap: 15px; background: rgba(255,255,255,0.2); padding: 12px 18px; border-radius: 15px; margin-bottom: 8px; cursor: pointer; align-items: center; border: 1px solid rgba(0,0,0,0.05); }
+
+        .settings-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        .settings-table td { padding: 5px; }
+    </style>
+</head>
+<body class="theme-baymax" id="bodyTag">
+
+<canvas id="celebration-canvas"></canvas>
+<div id="copy-toast" style="position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:rgba(0,0,0,0.85); color:white; padding:20px 40px; border-radius:40px; z-index:12000; display:none; pointer-events:none;">COPIED!</div>
+
+<div id="modal-overlay" onclick="closeModal()">
+    <div class="modal-content" onclick="event.stopPropagation()" id="modal-container"></div>
+</div>
+
+<aside id="left-routine">
+    <h2 style="font-size:1.4rem; margin-bottom:25px; font-weight:bold; color:var(--baymax-red);">●―● Protocol</h2>
+    <div id="routine-list"></div>
+</aside>
+
+<main id="center-main">
+    <header class="glass-card" style="display:flex; flex-direction:column; gap:15px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div id="live-clock">Loading Clock...</div>
+            <div style="display:flex; align-items:center; gap:20px;">
+                <div class="timer-display" id="timerDisplay">03:00</div>
+                <div style="display:flex; flex-direction:column; gap:5px;">
+                    <div style="display:flex; gap:4px;">
+                        <button class="btn" style="padding:4px 8px; font-size:0.75rem;" onclick="setTimerPreset(180)">3m</button>
+                        <button class="btn" style="padding:4px 8px; font-size:0.75rem;" onclick="setTimerPreset(300)">5m</button>
+                        <button class="btn" style="padding:4px 8px; font-size:0.75rem;" onclick="setTimerPreset(600)">10m</button>
+                        <button class="btn" style="padding:4px 8px; font-size:0.75rem; background:#444;" onclick="openCustomTimerModal()">Custom</button>
+                    </div>
+                    <div style="display:flex; gap:5px;">
+                        <button class="btn" style="flex:1;" onclick="startTimer()">START</button>
+                        <button class="btn" style="background:#666; flex:1;" onclick="stopTimer()">STOP</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="display:flex; align-items:center;">
+            <span style="font-weight:900; font-size:0.9rem;">MISSION:</span>
+            <div class="progress-bar"><div id="progressFill" class="progress-fill"></div></div>
+            <div style="display:flex; align-items:center; gap:8px;">
+                <span id="progressCurrent" style="font-weight:900; font-size:1.4rem;">0</span>
+                <span>/</span>
+                <input type="number" id="progressGoal" value="20" style="width:55px; font-weight:bold; text-align:center;" onchange="updateProgressUI()">
+            </div>
+            <button class="btn" style="border-radius:50%; width:44px; height:44px; padding:0; margin-left:15px; font-size:1.6rem;" onclick="addProgress()">+</button>
+        </div>
+    </header>
+
+    <nav class="nav-tabs" id="main-nav">
+        <button class="tab-btn active" onclick="showPage('launcher')">ランチャー</button>
+        <button class="tab-btn" onclick="showPage('cytology')">細胞診業務</button>
+        <button class="tab-btn" onclick="showPage('outsource')">外注・検査一覧</button>
+        <button class="tab-btn" onclick="showPage('settings')">設定</button>
+    </nav>
+
+    <div id="page-launcher" class="content-page active">
+        <div class="glass-card">
+            <h3>Quick Access</h3>
+            <div id="launcher-items" class="btn-grid"></div>
+        </div>
+    </div>
+
+    <div id="page-cytology" class="content-page">
+        <div class="glass-card" style="min-height:550px;">
+            <div style="display:flex; gap:10px; margin-bottom:20px;">
+                <button class="btn" onclick="showSub('sub-tpl')">所見テンプレ</button>
+                <button class="btn" onclick="showSub('sub-book')">症例ブックマーク</button>
+                <button class="btn" onclick="showSub('sub-crit')">判定基準</button>
+            </div>
+            <hr style="opacity:0.1; margin-bottom:20px;">
+
+            <div id="sub-tpl" class="sub-content">
+                <select id="tplSel" onchange="loadTpl()" style="width:100%; margin-bottom:15px; height:45px;">
+                    <option value="">-- テンプレートを選択 --</option>
+                    <option value="lung_ad">肺：腺癌疑い</option>
+                    <option value="uro_hg">尿：High-grade UC</option>
+                </select>
+                <textarea id="tplArea" style="width:100%; height:200px; font-size:1.1rem; background:rgba(255,255,255,0.6);" placeholder="編集可能です"></textarea>
+                <button class="btn" style="width:100%; margin-top:15px; height:55px;" onclick="copyTpl()">内容をコピー</button>
+            </div>
+
+            <div id="sub-book" class="sub-content" style="display:none;">
+                <div class="bm-input-group">
+                    <div class="bm-left-inputs">
+                        <input type="text" id="bmId" placeholder="No.">
+                        <select id="bmType"><option>肺</option><option>尿</option><option>甲状腺</option><option>その他</option></select>
+                    </div>
+                    <div class="bm-right-inputs">
+                        <textarea id="bmMemo" style="width:100%; height:100px;" placeholder="詳細メモ..."></textarea>
+                    </div>
+                </div>
+                <button class="btn" style="width:100%;" onclick="addBookmark()">ブックマークに追加</button>
+                <div style="margin-top:25px; border-bottom:2px solid rgba(0,0,0,0.05); padding-bottom:12px; display:flex; justify-content:space-between; align-items:center;">
+                    <div style="display:grid; grid-template-columns: 90px 120px 1fr; gap:15px; width:100%; padding:0 15px; font-weight:bold; font-size:0.9rem; opacity:0.6;">
+                        <span>分野</span><span>No.</span><span>メモ内容</span>
+                    </div>
+                    <button class="btn" style="font-size:0.75rem; background:#2e7d32;" onclick="exportToExcel()">Excel出力</button>
+                </div>
+                <div id="bmList" style="margin-top:10px;"></div>
+            </div>
+
+            <div id="sub-crit" class="sub-content" style="display:none;">
+                <div class="btn-grid">
+                    <button class="btn" style="height:60px;" onclick="openModal('肺：判定基準', 'ベセスダ第3版準拠...\n1.細胞採取量\n2.核異型...')">肺（Bethesda）</button>
+                    <button class="btn" style="height:60px;" onclick="openModal('尿：判定基準', 'パリシステム準拠...\n1.N/C比 0.7以上\n2.核縁不整...')">尿（Paris）</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="page-outsource" class="content-page">
+        <div class="glass-card">
+            <h3>検査・外注ポータル</h3>
+            <div id="test-category-grid" class="btn-grid"></div>
+        </div>
+    </div>
+
+    <div id="page-test-detail" class="content-page">
+        <div class="glass-card">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <h3 id="test-detail-title">詳細</h3>
+                <button class="btn" style="background:#666;" onclick="showPage('outsource')">戻る</button>
+            </div>
+            <div id="test-sub-category-grid" class="btn-grid" style="margin-top:20px;"></div>
+        </div>
+    </div>
+
+    <div id="page-settings" class="content-page">
+        <div class="glass-card">
+            <h3>System Settings</h3>
+            <div style="display:flex; gap:10px; margin-bottom:20px;">
+                <button class="btn" onclick="showSettingsSub('set-theme')">テーマ変更</button>
+                <button class="btn" onclick="showSettingsSub('set-links')">リンク設定</button>
+                <button class="btn" style="background:#555;" onclick="resetAll()">全リセット</button>
+            </div>
+            <hr style="opacity:0.1;">
+            <div id="set-theme" class="settings-sub" style="margin-top:15px;">
+                <p>テーマを選択：</p>
+                <button class="btn" onclick="setTheme('baymax')">Baymax</button>
+                <button class="btn" style="background:#2e7d32;" onclick="setTheme('afternoon')">Afternoon</button>
+                <button class="btn" style="background:#1a1a2e;" onclick="setTheme('night')">Night</button>
+            </div>
+            <div id="set-links" class="settings-sub" style="display:none; margin-top:15px;">
+                <p>ランチャー設定：</p>
+                <table class="settings-table">
+                    <thead><tr><th>表示名</th><th>URL / ファイルパス</th></tr></thead>
+                    <tbody id="link-editor-body"></tbody>
+                </table>
+                <button class="btn" style="margin-top:15px;" onclick="saveLauncherConfig()">設定を保存</button>
+            </div>
+        </div>
+    </div>
+</main>
+
+<aside id="right-memo">
+    <div class="glass-card" style="padding:15px;">
+        <h3 style="font-size:0.95rem; margin-bottom:10px; font-weight:bold;">●―● Memo Pad</h3>
+        <textarea id="memoInput" style="width:100%; height:75px; font-size:0.9rem;" placeholder="クイックメモ..."></textarea>
+        <button class="btn" style="width:100%; margin-top:8px;" onclick="addMemo()">追加</button>
+    </div>
+    <div id="memo-list-container"></div>
+</aside>
+
+<script>
+    const CONFIG = {
+        routines: ["夜勤申し送り確認", "染色機・試薬チェック", "至急検体の有無確認", "当日の配置確認"],
+        testCats: ["生化学", "血液学", "免疫・輸血", "一般検査", "微生物学", "病理・細胞診", "生理機能", "緊急検査", "検体取扱", "パニック値"],
+        templates: {
+            lung_ad: "【判定】陽性\n【所見】背景に壊死を伴い、大小不同の強い異型細胞が乳頭状〜集塊状に認められる。腺癌を疑う。",
+            uro_hg: "【判定】陽性\n【所見】高度な核異型を有する尿路上皮細胞を認める。High-grade UCを強く示唆する。"
+        }
+    };
+
+    let userConfig = JSON.parse(localStorage.getItem('vPro_user_config_final')) || {
+        links: [{name: "電子カルテ", url: "#"}, {name: "LISシステム", url: "#"}, {name: "共有フォルダ", url: "file:///Z:/"}, {name: "note | Dapity", url: "https://note.com/"}]
+    };
+
+    // --- 時計 ---
+    function updateClock() {
+        const now = new Date();
+        const days = ['日','月','火','水','木','金','土'];
+        document.getElementById('live-clock').innerText = `${now.getFullYear()}/${(now.getMonth()+1).toString().padStart(2,'0')}/${now.getDate().toString().padStart(2,'0')} (${days[now.getDay()]}) ${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}:${now.getSeconds().toString().padStart(2,'0')}`;
+    }
+    setInterval(updateClock, 1000);
+
+    // --- ページ管理 (タブ色変化) ---
+    function showPage(pageId) {
+        document.querySelectorAll('.content-page').forEach(el => el.classList.remove('active'));
+        const targetPage = document.getElementById('page-' + pageId);
+        if(targetPage) targetPage.classList.add('active');
+        
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        const btns = document.querySelectorAll('.tab-btn');
+        if(pageId === 'launcher') btns[0].classList.add('active');
+        else if(pageId === 'cytology') btns[1].classList.add('active');
+        else if(pageId === 'outsource' || pageId === 'test-detail') btns[2].classList.add('active');
+        else if(pageId === 'settings') btns[3].classList.add('active');
+    }
+    function showSub(s) { document.querySelectorAll('.sub-content').forEach(el => el.style.display = 'none'); document.getElementById(s).style.display = 'block'; }
+    function showSettingsSub(s) { document.querySelectorAll('.settings-sub').forEach(el => el.style.display = 'none'); document.getElementById(s).style.display = 'block'; if(s==='set-links') renderLinkEditor(); }
+
+    // --- ルーチン生成 (修正版) ---
+    function initRoutine() {
+        const rCont = document.getElementById('routine-list');
+        rCont.innerHTML = '';
+        const lastDate = localStorage.getItem('vRoutine_date_final');
+        if (lastDate === new Date().toDateString()) {
+            document.getElementById('left-routine').classList.add('closed');
+        } else {
+            CONFIG.routines.forEach((r, i) => {
+                const div = document.createElement('div');
+                div.className = 'routine-item';
+                div.innerHTML = `<input type="checkbox"> <label style="cursor:pointer; flex:1;">${r}</label>`;
+                div.onclick = (e) => {
+                    const cb = div.querySelector('input');
+                    if(e.target !== cb) cb.checked = !cb.checked;
+                    div.classList.toggle('checked', cb.checked);
+                    if(Array.from(document.querySelectorAll('#routine-list input')).every(c => c.checked)) {
+                        setTimeout(() => {
+                            document.getElementById('left-routine').classList.add('closed');
+                            localStorage.setItem('vRoutine_date_final', new Date().toDateString());
+                        }, 600);
+                    }
+                };
+                rCont.appendChild(div);
+            });
+        }
+    }
+
+    // --- ランチャー設定 ---
+    function initLauncher() {
+        const grid = document.getElementById('launcher-items'); grid.innerHTML = '';
+        userConfig.links.forEach(l => {
+            const btn = document.createElement('button'); btn.className = 'btn'; btn.style.height = '60px'; btn.innerText = l.name;
+            btn.onclick = () => window.open(l.url, '_blank'); grid.appendChild(btn);
+        });
+    }
+    function renderLinkEditor() {
+        const body = document.getElementById('link-editor-body'); body.innerHTML = '';
+        userConfig.links.forEach((l, i) => {
+            body.innerHTML += `<tr><td><input type="text" value="${l.name}" id="ename-${i}"></td><td><input type="text" value="${l.url}" id="eurl-${i}" style="width:100%"></td></tr>`;
+        });
+    }
+    function saveLauncherConfig() {
+        userConfig.links = userConfig.links.map((_, i) => ({name: document.getElementById('ename-'+i).value, url: document.getElementById('eurl-'+i).value}));
+        localStorage.setItem('vPro_user_config_final', JSON.stringify(userConfig));
+        initLauncher(); alert("保存完了");
+    }
+
+    // --- 症例ブックマーク ---
+    let bms = JSON.parse(localStorage.getItem('vPro_bms_final')) || [];
+    function addBookmark() {
+        const id = document.getElementById('bmId').value;
+        const type = document.getElementById('bmType').value;
+        const memo = document.getElementById('bmMemo').value;
+        if(id) {
+            bms.push({id, type, memo});
+            document.getElementById('bmId').value = ''; document.getElementById('bmMemo').value = '';
+            saveBms();
+        } else { alert("症例番号を入力してください"); }
+    }
+    function saveBms() { localStorage.setItem('vPro_bms_final', JSON.stringify(bms)); renderBms(); }
+    function renderBms() {
+        const list = document.getElementById('bmList'); list.innerHTML = '';
+        bms.forEach((item) => {
+            const row = document.createElement('div'); row.className = 'bm-row';
+            row.onclick = () => openModal(`No. ${item.id} (${item.type})`, item.memo);
+            row.innerHTML = `<span class="btn" style="padding:2px 8px; font-size:0.7rem;">${item.type}</span><b>No. ${item.id}</b><span style="opacity:0.6; font-size:0.85rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${item.memo}</span>`;
+            list.appendChild(row);
+        });
+    }
+    function exportToExcel() {
+        let csv = "\uFEFF分野,症例No,メモ\n"; bms.forEach(i => { csv += `"${i.type}","${i.id}","${i.memo.replace(/"/g, '""')}"\n`; });
+        const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+        const link = document.createElement("a"); link.href = URL.createObjectURL(blob); link.download = `症例ブックマーク_${new Date().toLocaleDateString()}.csv`; link.click();
+    }
+
+    // --- 無限メモ ---
+    let memos = JSON.parse(localStorage.getItem('vPro_memos_final')) || [];
+    function renderMemos() {
+        const cont = document.getElementById('memo-list-container'); cont.innerHTML = '';
+        memos.forEach((text, i) => {
+            const div = document.createElement('div'); div.className = 'post-it';
+            div.innerHTML = `<span class="del-btn" onclick="deleteMemo(${i})">×</span><div style="white-space:pre-wrap; font-size:0.95rem;">${text}</div>`;
+            cont.appendChild(div);
+        });
+    }
+    function addMemo() { const input = document.getElementById('memoInput'); if(input.value.trim()){ memos.unshift(input.value); input.value = ''; saveMemos(); } }
+    function deleteMemo(i) { memos.splice(i,1); saveMemos(); }
+    function saveMemos() { localStorage.setItem('vPro_memos_final', JSON.stringify(memos)); renderMemos(); }
+
+    // --- タイマー ---
+    let tInt; let tSec = 180;
+    function setTimerPreset(s){ clearInterval(tInt); tSec=s; updateTDisp(); }
+    function openCustomTimerModal() {
+        document.getElementById('modal-container').innerHTML = `<h3>●―● Custom Timer</h3><input type="number" id="t-val" value="15" style="width:100%; font-size:1.5rem;"><button class="btn" style="width:100%; margin-top:20px;" onclick="setTimerPreset(document.getElementById('t-val').value*60);closeModal();">分数を設定</button>`;
+        document.getElementById('modal-overlay').style.display='flex';
+    }
+    function startTimer(){ clearInterval(tInt); tInt=setInterval(()=>{if(tSec<=0){clearInterval(tInt);alert("Time Up!");return;}tSec--;updateTDisp();},1000); }
+    function stopTimer() { clearInterval(tInt); }
+    function updateTDisp(){ document.getElementById('timerDisplay').innerText = `${Math.floor(tSec/60).toString().padStart(2,'0')}:${(tSec%60).toString().padStart(2,'0')}`; }
+
+    // --- 進捗 & 演出 ---
+    let currentProg = 0;
+    function addProgress() { const goal = parseInt(document.getElementById('progressGoal').value); if(currentProg < goal){ currentProg++; updateProgressUI(); if(currentProg === goal) triggerFinale(); } }
+    function updateProgressUI() { document.getElementById('progressFill').style.width = Math.min((currentProg/parseInt(document.getElementById('progressGoal').value))*100, 100)+'%'; document.getElementById('progressCurrent').innerText = currentProg; }
+    function triggerFinale() {
+        const canvas = document.getElementById('celebration-canvas'); canvas.style.opacity = "1";
+        const ctx = canvas.getContext('2d'); canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+        let p = []; for(let i=0;i<80;i++) p.push({x:Math.random()*canvas.width, y:canvas.height+20, vx:(Math.random()-0.5)*6, vy:-Math.random()*12-8, color:`hsl(${Math.random()*360},80%,60%)`, s:Math.random()*5+2});
+        function anim() { ctx.clearRect(0,0,canvas.width,canvas.height); p.forEach(v=>{v.x+=v.vx; v.y+=v.vy; v.vy+=0.15; ctx.fillStyle=v.color; ctx.beginPath(); ctx.arc(v.x,v.y,v.s,0,Math.PI*2); ctx.fill();}); if(canvas.style.opacity==="1") requestAnimationFrame(anim); }
+        anim(); setTimeout(()=>canvas.style.opacity="0",5000);
+    }
+
+    // --- その他 ---
+    function openModal(t, b) { document.getElementById('modal-container').innerHTML = `<h3>${t}</h3><div style="white-space:pre-wrap; line-height:1.8;">${b}</div><button class="btn" style="width:100%; margin-top:20px;" onclick="closeModal()">閉じる</button>`; document.getElementById('modal-overlay').style.display = 'flex'; }
+    function closeModal() { document.getElementById('modal-overlay').style.display = 'none'; }
+    function setTheme(t) { document.body.className = 'theme-' + t; }
+    function resetAll() { if(confirm("初期化しますか？")) { localStorage.clear(); location.reload(); } }
+
+    window.onload = () => {
+        updateClock(); initRoutine(); initLauncher(); renderMemos(); renderBms(); updateProgressUI();
+        // 検査カテゴリ初期化
+        const catGrid = document.getElementById('test-category-grid');
+        CONFIG.testCats.forEach(cat => {
+            const btn = document.createElement('button'); btn.className = 'btn'; btn.style.height = '60px'; btn.innerText = cat;
+            btn.onclick = () => {
+                document.getElementById('test-detail-title').innerText = cat;
+                const sg = document.getElementById('test-sub-category-grid'); sg.innerHTML = '';
+                ["手順書", "判定基準", "Q&A"].forEach(s => {
+                    const sb = document.createElement('button'); sb.className = 'btn'; sb.style.height = '60px'; sb.style.background = '#444'; sb.innerText = s;
+                    sb.onclick = () => openModal(cat + ' > ' + s, s + ' の詳細ガイドです。');
+                    sg.appendChild(sb);
+                });
+                showPage('test-detail');
+            };
+            catGrid.appendChild(btn);
+        });
+    };
+
+    function loadTpl() { document.getElementById('tplArea').value = CONFIG.templates[document.getElementById('tplSel').value] || ""; }
+    function copyTpl() { navigator.clipboard.writeText(document.getElementById('tplArea').value).then(() => { const toast = document.getElementById('copy-toast'); toast.style.display='block'; setTimeout(()=>toast.style.display='none',1000); }); }
+</script>
+</body>
+</html>
